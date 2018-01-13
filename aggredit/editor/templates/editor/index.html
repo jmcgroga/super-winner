@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{ title }}</title>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <link href="/~jmcgroga/editor/css/quill/quill.jrm.css" rel="stylesheet">
+  <script src="/~jmcgroga/editor/js/quill/quill.js"></script>
+  <link href="/~jmcgroga/editor/css/aggredit/aggredit.css" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+  <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+</head>
+<body>
+  <input id="document" name="document" type="hidden" value="{{ document }}"></input>
+  <div id="instructions" class="instructions">
+    <p>This is a proof of concept for an editor that will create multiple documents on a single page.</p>
+    <p>It is based on <a href="https://quilljs.com">Quill</a> and inspired (somewhat) by <a href="https://www.gnu.org/software/emacs/">Emacs</a>.</p>
+    <p>When the page loads, an initial Quill document is created for text input</p>
+    <p>To create a new document, use ALT-x to open the command window at the bottom of the screen.</p>
+    <p>The following commands are available:</p>
+    <ul>
+      <li><span class="command">text</span> - Create a Plain Text editor</li>
+      <li><span class="command">requirements</span> - Create a Plain Text editor and default to bullet list</li>
+      <li><span class="command">python</span> - Create a Python editor</li>
+      <li><span class="command">javascript</span> - Create a Javascript editor</li>
+      <li><span class="command">c++</span> - Create a C++ editor</li>
+      <li><span class="command">html</span> - Create a HTML editor</li>
+      <li><span class="command">xml</span> - Create a XML editor</li>
+      <li><span class="command">save</span> - Save current document (ie all Quill editors) (Requires backend)</li>
+      <li><span class="command">load</span> - Load "default" document (Requires backend)</li>
+    </ul>
+    <p>There are a bunch of problems (eg items are draggable, but shouldn't be yet).</p>
+    <p>The idea is to jot down ideas or copy code quickly, then review the documents and organize them by dragging them someplace that makes more sense (eg another document for a project or something like that.</p>
+  </div>
+
+  <div id="editor">
+  </div>
+
+  <div id="footer">
+    <input id="command" class="full-width" value="Your Command Here"></input>
+  </div>
+
+  <script>
+    var $j = jQuery.noConflict();
+  </script>
+  <script src="/~jmcgroga/editor/js/aggredit/aggredit.js"></script>
+  <script>
+    var aggrEdit;
+(function() {
+    aggrEdit = new AggrEdit();
+    aggrEdit.registerCreateEditorCommand('text');
+    aggrEdit.registerCreateEditorCommand('requirements',
+                                         null,
+                                         function(quill, contents) {
+                                             quill.formatLine(0, 1, 'list', 'bullet');
+                                         },
+                                         true);
+    registerLanguage(aggrEdit, 'python', '#');
+    registerLanguage(aggrEdit, 'javascript', '/*', '*/');
+    registerLanguage(aggrEdit, 'c++', '/*', '*/');
+    registerLanguage(aggrEdit, 'html', '<!-- ', ' -->');
+    registerLanguage(aggrEdit, 'xml', '<!-- ', ' -->');
+    aggrEdit.createQuill('text').then(() => {
+        aggrEdit.load();
+    });
+})();
+  </script>
+</body>
+</html>
