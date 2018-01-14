@@ -18,7 +18,7 @@
     <p>This is a proof of concept for an editor that will create multiple documents on a single page.</p>
     <p>It is based on <a href="https://quilljs.com">Quill</a> and inspired (somewhat) by <a href="https://www.gnu.org/software/emacs/">Emacs</a>.</p>
     <p>When the page loads, an initial Quill document is created for text input</p>
-    <p>To create a new document, use ALT-x to open the command window at the bottom of the screen.</p>
+    <p>To create a new document, add the document name after /editor/ in the URL.  (Will change when commands become more mature)</p>
     <p>The following commands are available:</p>
     <ul class="command-list">
       <li><span class="command">text</span> - Create a Plain Text editor</li>
@@ -28,6 +28,7 @@
       <li><span class="command">c++</span> - Create a C++ editor</li>
       <li><span class="command">html</span> - Create a HTML editor</li>
       <li><span class="command">xml</span> - Create a XML editor</li>
+      <li><span class="command">&nbsp;</li>
       <li><span class="command">help</span> - Show this info</li>
       <li><span class="command">hidehelp</span> - Hide this info</li>
       <li><span class="command">save</span> - Save current document (ie all Quill editors)</li>
@@ -48,22 +49,18 @@
     var $j = jQuery.noConflict();
   </script>
   <script src="/aggredit/editor/js/aggredit/aggredit.js"></script>
+  <script src="/aggredit/editor/js/aggredit/default_commands.js"></script>
   <script>
     var aggrEdit;
 (function() {
     aggrEdit = new AggrEdit();
-    aggrEdit.registerCreateEditorCommand('text');
-    aggrEdit.registerCreateEditorCommand('requirements',
-                                         null,
-                                         function(quill, contents) {
-                                             quill.formatLine(0, 1, 'list', 'bullet');
-                                         },
-                                         true);
-    registerLanguage(aggrEdit, 'python', '#');
-    registerLanguage(aggrEdit, 'javascript', '/*', '*/');
-    registerLanguage(aggrEdit, 'c++', '/*', '*/');
-    registerLanguage(aggrEdit, 'html', '<!-- ', ' -->');
-    registerLanguage(aggrEdit, 'xml', '<!-- ', ' -->');
+    default_commands(aggrEdit);
+    aggrEdit.registerCommand('help', function(editor) {
+        $j('#instructions').show();
+    });
+    aggrEdit.registerCommand('hidehelp', function(editor) {
+        $j('#instructions').hide();
+    });
     aggrEdit.createQuill('text').then(() => {
         aggrEdit.load();
     });

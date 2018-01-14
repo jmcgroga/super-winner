@@ -9,6 +9,9 @@ class AggrEdit {
         this.documentsAPI = "/aggredit/api/documents";
         this.uuidsAPI = "/aggredit/api/uuids";
 
+        this.commandFunctions = {
+        };
+
         this.createEditorCommands = {
         };
 
@@ -23,6 +26,10 @@ class AggrEdit {
 
     isCommand(str) {
         return $j.inArray(str, this.commands) >= 0;
+    }
+
+    isCreateCommand(str) {
+        return typeof this.createEditorCommands[str] !== 'undefined';
     }
 
     configureCommandElement() {
@@ -41,7 +48,11 @@ class AggrEdit {
                         this.load('default');
                         break;
                     default:
-                        this.createQuill(command);
+                        if (this.isCreateCommand(command)) {
+                            this.createQuill(command);
+                        } else {
+                            this.commandFunctions[command](this);
+                        }
                     }
                 } else {
                     $j('#command').val('Invalid command: ' + command);
@@ -104,6 +115,11 @@ class AggrEdit {
             contentType: 'application/json; charset=utf-8',
             dataType: "json"
         });
+    }
+
+    registerCommand(command, fcn) {
+        this.commands.push(command);
+        this.commandFunctions[command] = fcn;
     }
 
     registerCreateEditorCommand(command, preCreate, postCreate, syntax) {
