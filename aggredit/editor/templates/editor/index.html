@@ -5,12 +5,17 @@
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
   <link href="/aggredit/editor/css/quill/quill.jrm.css" rel="stylesheet">
-  <script src="/aggredit/editor/js/quill/quill.js"></script>
+  <script src="//cdn.quilljs.com/latest/quill.min.js"></script>
   <link href="/aggredit/editor/css/aggredit/aggredit.css" rel="stylesheet">
 
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></link>
+  <script>
+    var $j = jQuery.noConflict();
+  </script>
+  <script src="{{ app.config['AGGREDIT_URL_PREFIX'] }}/aggredit.js"></script>
+  <script src="{{ app.config['AGGREDIT_URL_PREFIX'] }}/default_commands.js"></script>
 </head>
 <body>
   <input id="document" name="document" type="hidden" value="{{ document }}"></input>
@@ -45,11 +50,6 @@
     <input id="command" class="full-width" value="Your Command Here"></input>
   </div>
 
-  <script>
-    var $j = jQuery.noConflict();
-  </script>
-  <script src="/aggredit/editor/js/aggredit/aggredit.js"></script>
-  <script src="/aggredit/editor/js/aggredit/default_commands.js"></script>
   <script>
     var aggrEdit;
 (function() {

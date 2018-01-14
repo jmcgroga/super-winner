@@ -4,6 +4,7 @@ class Config(object):
     BLUEPRINT_ROOT_URL_PREFIX = '/'
     BLUEPRINT_ROOT_EDITOR_PREFIX = '/editor'
     BLUEPRINT_ROOT_API_PREFIX = '/api'
+    AGGREDIT_URL_PREFIX = "/aggredit/js"
     
 class Production(Config):
     pass
@@ -13,6 +14,7 @@ class Development(Config):
     BLUEPRINT_ROOT_URL_PREFIX = '/aggredit'
     BLUEPRINT_ROOT_EDITOR_PREFIX = '/aggredit/editor'
     BLUEPRINT_ROOT_API_PREFIX = '/aggredit/api'
+    AGGREDIT_URL_PREFIX = "http://localhost:8000/js"
 
 class Testing(Config):
     TESTING = True

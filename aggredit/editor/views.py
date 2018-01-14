@@ -3,7 +3,7 @@ from aggredit.models import *
 
 import os
 
-from flask import render_template, send_from_directory
+from flask import render_template, send_from_directory, current_app
 
 @editor.route('/', defaults={ 'document': None })
 @editor.route('/<document>')
@@ -11,6 +11,7 @@ def index(document):
     if document is None:
         document = 'default'
     return render_template("editor/index.html",
+                           app=current_app,
                            document=document)
 
 @editor.route('/css/<path:path>')
