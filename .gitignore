@@ -1,4 +1,5 @@
 *.pyc
 *~
 aggredit/index.html
-
+passenger.*.log
+passenger.*.pid.lock
