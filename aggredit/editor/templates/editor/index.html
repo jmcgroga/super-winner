@@ -4,9 +4,9 @@
   <title>{{ title }}</title>
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <link href="/~jmcgroga/editor/css/quill/quill.jrm.css" rel="stylesheet">
-  <script src="/~jmcgroga/editor/js/quill/quill.js"></script>
-  <link href="/~jmcgroga/editor/css/aggredit/aggredit.css" rel="stylesheet">
+  <link href="/aggredit/editor/css/quill/quill.jrm.css" rel="stylesheet">
+  <script src="/aggredit/editor/js/quill/quill.js"></script>
+  <link href="/aggredit/editor/css/aggredit/aggredit.css" rel="stylesheet">
 
   <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -20,7 +20,7 @@
     <p>When the page loads, an initial Quill document is created for text input</p>
     <p>To create a new document, use ALT-x to open the command window at the bottom of the screen.</p>
     <p>The following commands are available:</p>
-    <ul>
+    <ul class="command-list">
       <li><span class="command">text</span> - Create a Plain Text editor</li>
       <li><span class="command">requirements</span> - Create a Plain Text editor and default to bullet list</li>
       <li><span class="command">python</span> - Create a Python editor</li>
@@ -28,8 +28,10 @@
       <li><span class="command">c++</span> - Create a C++ editor</li>
       <li><span class="command">html</span> - Create a HTML editor</li>
       <li><span class="command">xml</span> - Create a XML editor</li>
-      <li><span class="command">save</span> - Save current document (ie all Quill editors) (Requires backend)</li>
-      <li><span class="command">load</span> - Load "default" document (Requires backend)</li>
+      <li><span class="command">help</span> - Show this info</li>
+      <li><span class="command">hidehelp</span> - Hide this info</li>
+      <li><span class="command">save</span> - Save current document (ie all Quill editors)</li>
+      <li><span class="command">load</span> - Load current document</li>
     </ul>
     <p>There are a bunch of problems (eg items are draggable, but shouldn't be yet).</p>
     <p>The idea is to jot down ideas or copy code quickly, then review the documents and organize them by dragging them someplace that makes more sense (eg another document for a project or something like that.</p>
@@ -45,7 +47,7 @@
   <script>
     var $j = jQuery.noConflict();
   </script>
-  <script src="/~jmcgroga/editor/js/aggredit/aggredit.js"></script>
+  <script src="/aggredit/editor/js/aggredit/aggredit.js"></script>
   <script>
     var aggrEdit;
 (function() {

@@ -6,8 +6,8 @@ class AggrEdit {
             'load'
         ];
 
-        this.documentsAPI = "/~jmcgroga/api/documents";
-        this.uuidsAPI = "/~jmcgroga/api/uuids";
+        this.documentsAPI = "/aggredit/api/documents";
+        this.uuidsAPI = "/aggredit/api/uuids";
 
         this.createEditorCommands = {
         };
