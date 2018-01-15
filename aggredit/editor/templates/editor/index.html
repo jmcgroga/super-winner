@@ -15,7 +15,6 @@
     var $j = jQuery.noConflict();
   </script>
   <script src="{{ app.config['AGGREDIT_URL_PREFIX'] }}/aggredit.js"></script>
-  <script src="{{ app.config['AGGREDIT_URL_PREFIX'] }}/default_commands.js"></script>
 </head>
 <body>
   <input id="document" name="document" type="hidden" value="{{ document }}"></input>
@@ -43,6 +42,9 @@
     <p>The idea is to jot down ideas or copy code quickly, then review the documents and organize them by dragging them someplace that makes more sense (eg another document for a project or something like that.</p>
   </div>
 
+  <div id="header">
+  </div>
+
   <div id="editor">
   </div>
 
@@ -54,16 +56,18 @@
     var aggrEdit;
 (function() {
     aggrEdit = new AggrEdit();
-    default_commands(aggrEdit);
-    aggrEdit.registerCommand('help', function(editor) {
-        $j('#instructions').show();
-    });
-    aggrEdit.registerCommand('hidehelp', function(editor) {
-        $j('#instructions').hide();
-    });
-    aggrEdit.createQuill('text').then(() => {
-        aggrEdit.load();
-    });
+    aggrEdit.loadPlugin("{{ app.config['AGGREDIT_URL_PREFIX'] }}/default_commands.js")
+        .then(function() {
+            aggrEdit.registerCommand('help', function(editor) {
+                $j('#instructions').show();
+            });
+            aggrEdit.registerCommand('hidehelp', function(editor) {
+                $j('#instructions').hide();
+            });
+            aggrEdit.createQuill('text').then(() => {
+                aggrEdit.load();
+            });
+        });
 })();
   </script>
 </body>

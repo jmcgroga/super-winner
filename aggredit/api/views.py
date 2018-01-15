@@ -15,10 +15,7 @@ def get_documents():
 
 @api.route('/documents/<document>', methods=['GET'])
 def load_document(document):
-    if document not in documents:
-        return jsonify({})
-
-    items = documents[document]
+    items = Documents.appdoc().loadDocument(document)
 
     return jsonify(
         { 'document': document,
@@ -33,10 +30,9 @@ def save_document():
 
     document = request.json['document']
     items = request.json['items']
-    documents[document] = items
 
-    print(request.json)
-    
+    Documents.appdoc().saveDocument(document, items)
+
     return jsonify({ 'saved' : True })
 
 @api.route('/uuids', methods=['GET'])

@@ -5,6 +5,7 @@ class Config(object):
     BLUEPRINT_ROOT_EDITOR_PREFIX = '/editor'
     BLUEPRINT_ROOT_API_PREFIX = '/api'
     AGGREDIT_URL_PREFIX = "/aggredit/js"
+    DOCUMENT_DIR = '../../../documents'
     
 class Production(Config):
     pass
@@ -15,6 +16,7 @@ class Development(Config):
     BLUEPRINT_ROOT_EDITOR_PREFIX = '/aggredit/editor'
     BLUEPRINT_ROOT_API_PREFIX = '/aggredit/api'
     AGGREDIT_URL_PREFIX = "http://localhost:8000/js"
+    DOCUMENT_DIR = '/Users/jmcgroga/Development/AggrEdit/documents'
 
 class Testing(Config):
     TESTING = True
