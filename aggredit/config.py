@@ -16,7 +16,6 @@ class Development(Config):
     BLUEPRINT_ROOT_EDITOR_PREFIX = '/aggredit/editor'
     BLUEPRINT_ROOT_API_PREFIX = '/aggredit/api'
     AGGREDIT_URL_PREFIX = "http://localhost:8000/js"
-    DOCUMENT_DIR = '/Users/jmcgroga/Development/AggrEdit/documents'
 
 class Testing(Config):
     TESTING = True

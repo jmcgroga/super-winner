@@ -129,38 +129,3 @@ class Documents(object):
         for item in items:
             content.append(self.loadContent(item))
         return content
-
-if __name__ == '__main__':
-    from uuid import uuid4
-
-    document = 'default'
-    items = [
-        {
-            'id': str(uuid4()),
-            'command': 'text',
-            'contents': {
-                'test' : 'hello'
-            }
-        },
-        {
-            'id': str(uuid4()),
-            'command': 'javascript',
-            'contents': {
-                'test' : 'hello'
-            }
-        },
-        {
-            'id': str(uuid4()),
-            'command': 'python',
-            'contents': {
-                'test' : 'hello'
-            }
-        },
-    ]
-
-    documents = Documents('/Users/jmcgroga/Development/AggrEdit/documents')
-
-    documents.saveDocument(document, items)
-
-    for item in documents.loadDocument(document):
-        print('    ', json.dumps(item))
