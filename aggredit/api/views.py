@@ -17,6 +17,9 @@ def get_documents():
 def load_document(document):
     items = Documents.appdoc().loadDocument(document)
 
+    if items == []:
+        return jsonify({})
+
     return jsonify(
         { 'document': document,
           'items': items

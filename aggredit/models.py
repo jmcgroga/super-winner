@@ -6,8 +6,18 @@ from time import strftime
 from flask import current_app
 
 class Documents(object):
-    DOC = None
+    DOCSTORAGE = None
     
+    @classmethod
+    def appdoc(cls):
+        if Documents.DOCSTORAGE is None:
+            if current_app.config['DOCUMENT_DIR'] is None:
+                Documents.DOCSTORAGE = DemoDocumentStorage()
+            else:
+                Documents.DOCSTORAGE = DocumentStorage(current_app.config['DOCUMENT_DIR'])
+        return Documents.DOCSTORAGE
+
+class DocumentStorage(object):
     def __init__(self, directory):
         self.directory = directory
         self.documents = None
@@ -19,12 +29,6 @@ class Documents(object):
                 os.makedirs(self.documents)
             if not os.path.exists(self.content):
                 os.makedirs(self.content)
-
-    @classmethod
-    def appdoc(cls):
-        if Documents.DOC is None:
-            Documents.DOC = Documents(current_app.config['DOCUMENT_DIR'])
-        return Documents.DOC
 
     def relative(self, linkpath, docpath):
         dots = []
@@ -129,3 +133,15 @@ class Documents(object):
         for item in items:
             content.append(self.loadContent(item))
         return content
+
+class DemoDocumentStorage(object):
+    def __init__(self):
+        self.documents = {}
+
+    def saveDocument(self, document, items):
+        self.documents[document] = items
+
+    def loadDocument(self, document):
+        if document in self.documents:
+            return self.documents[document]
+        return []
